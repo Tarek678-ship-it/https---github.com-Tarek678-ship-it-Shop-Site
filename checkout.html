@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ShopMate checkout demo">
+    <title>Checkout | ShopMate</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a class="skip-link" href="#checkout-main">Skip to checkout</a>
+    <header class="checkout-header">
+        <div class="container checkout-topbar">
+            <a class="logo" href="index.html"><strong>ShopMate</strong></a>
+            <p>Checkout</p>
+            <a href="index.html#shop">Continue shopping</a>
+        </div>
+    </header>
+
+    <main class="container checkout-main" id="checkout-main">
+        <h1>Delivery and payment</h1>
+        <p class="checkout-note">Demo checkout. This sample summary does not yet reflect the products selected on the shop page.</p>
+
+        <div class="checkout-layout">
+            <form class="checkout-form">
+                <section aria-labelledby="delivery-title">
+                    <h2 id="delivery-title">Delivery address</h2>
+                    <div class="checkout-fields">
+                        <div class="checkout-field">
+                            <label for="first-name">First name</label>
+                            <input id="first-name" name="first-name" autocomplete="given-name" required>
+                        </div>
+                        <div class="checkout-field">
+                            <label for="last-name">Last name</label>
+                            <input id="last-name" name="last-name" autocomplete="family-name" required>
+                        </div>
+                        <div class="checkout-field checkout-field-wide">
+                            <label for="email">Email address</label>
+                            <input id="email" name="email" type="email" autocomplete="email" required>
+                        </div>
+                        <div class="checkout-field checkout-field-wide">
+                            <label for="address">Street address</label>
+                            <input id="address" name="address" autocomplete="street-address" required>
+                        </div>
+                        <div class="checkout-field">
+                            <label for="city">City</label>
+                            <input id="city" name="city" autocomplete="address-level2" required>
+                        </div>
+                        <div class="checkout-field">
+                            <label for="region">State or region</label>
+                            <input id="region" name="region" autocomplete="address-level1" required>
+                        </div>
+                        <div class="checkout-field">
+                            <label for="postal-code">ZIP or postal code</label>
+                            <input id="postal-code" name="postal-code" autocomplete="postal-code" required>
+                        </div>
+                        <div class="checkout-field">
+                            <label for="country">Country</label>
+                            <select id="country" name="country" autocomplete="country-name" required>
+                                <option value="" selected disabled>Select country</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section aria-labelledby="payment-title">
+                    <h2 id="payment-title">Payment method</h2>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="card" checked>
+                        Credit or debit card
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="paypal">
+                        PayPal
+                    </label>
+                    <p class="checkout-demo-note">Payment details are not collected or processed on this demo page.</p>
+                </section>
+            </form>
+
+            <aside class="order-summary" aria-labelledby="summary-title">
+                <h2 id="summary-title">Order summary</h2>
+                <ul class="summary-items">
+                    <li class="summary-item">
+                        <span class="summary-item-name">Casual Men's Outfit<small>Qty: 1</small></span>
+                        <span>$29.99</span>
+                    </li>
+                    <li class="summary-item">
+                        <span class="summary-item-name">Men's Quarter Zip<small>Qty: 1</small></span>
+                        <span>$39.99</span>
+                    </li>
+                    <li class="summary-item">
+                        <span class="summary-item-name">Beige &amp; Navy Blazers<small>Qty: 1</small></span>
+                        <span>$49.99</span>
+                    </li>
+                </ul>
+                <div class="summary-totals">
+                    <p class="summary-total"><span>Subtotal</span><span>$119.97</span></p>
+                    <p class="summary-total"><span>Shipping</span><span>Free</span></p>
+                    <p class="summary-total"><span>Estimated tax</span><span>Calculated at checkout</span></p>
+                    <p class="summary-total summary-grand-total"><span>Total before tax</span><span>$119.97</span></p>
+                </div>
+                <button class="place-order" type="button" disabled>Place order</button>
+                <p class="checkout-demo-note">Ordering is not connected yet.</p>
+                <a class="checkout-return" href="index.html#shop">Return to the shop</a>
+            </aside>
+        </div>
+    </main>
+</body>
+</html>

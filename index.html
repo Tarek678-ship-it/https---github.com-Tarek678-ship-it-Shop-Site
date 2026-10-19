@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShopMate</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css">
+    </head>
+    <body>
+        <a class="skip-link" href="#main">Skip to content</a>
+        <header id="home">
+            <div class="container header-row">
+                <div class="logo">
+                    <h1><a href="#home">ShopMate</a></h1>
+                </div>
+                <div class="search-container" role="search">
+                    <label class="visually-hidden" for="product-search">Search products</label>
+                    <input id="product-search" type="search" placeholder="Search...">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </div>
+                <nav aria-label="Main navigation">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#shop">Shop</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li>
+                            <a class="cart-link" href="#cart" aria-label="View cart">
+                                <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+                                <span>Cart</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main id="main">
+            <section class="hero" aria-labelledby="hero-title">
+                <h2 id="hero-title">Winter Collection 2026</h2>
+                <p>Discover The Latest Trends</p>
+                <a href="#shop" class="btn">Shop Now</a>
+            </section>
+
+            <section class="products" id="shop" aria-labelledby="shop-title">
+                <div class="container">
+                    <h2 id="shop-title">Featured Products</h2>
+                    <div class="product-grid">
+                        <article class="product-card">
+                            <img src="images/cloth 1.jpg" alt="Casual men's outfit">
+                            <h3>Casual Men's Outfit</h3>
+                            <p class="product-price">$29.99</p>
+                            <input class="cart-toggle" type="checkbox" id="cart-outfit">
+                            <label class="cart-btn" for="cart-outfit">
+                                <span class="add-text">Add to cart</span>
+                                <span class="remove-text">Remove from cart</span>
+                            </label>
+                        </article>
+                        <article class="product-card">
+                            <img src="images/cloth 2.jpg" alt="Men's quarter zip top">
+                            <h3>Men's Quarter Zip</h3>
+                            <p class="product-price">$39.99</p>
+                            <input class="cart-toggle" type="checkbox" id="cart-quarter-zip">
+                            <label class="cart-btn" for="cart-quarter-zip">
+                                <span class="add-text">Add to cart</span>
+                                <span class="remove-text">Remove from cart</span>
+                            </label>
+                        </article>
+                        <article class="product-card">
+                            <img src="images/cloth 3.jpg" alt="Beige and navy blazer set">
+                            <h3>Beige &amp; Navy Blazers</h3>
+                            <p class="product-price">$49.99</p>
+                            <input class="cart-toggle" type="checkbox" id="cart-blazers">
+                            <label class="cart-btn" for="cart-blazers">
+                                <span class="add-text">Add to cart</span>
+                                <span class="remove-text">Remove from cart</span>
+                            </label>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cart-section" id="cart" aria-labelledby="cart-title">
+                <div class="container">
+                    <h2 id="cart-title">Your Cart</h2>
+                    <p class="cart-empty">Your cart is empty. Add products above to see them here.</p>
+                    <ul class="cart-items" aria-label="Items in your cart">
+                        <li class="cart-item cart-item-outfit"><span>Casual Men's Outfit</span><span>$29.99</span></li>
+                        <li class="cart-item cart-item-quarter-zip"><span>Men's Quarter Zip</span><span>$39.99</span></li>
+                        <li class="cart-item cart-item-blazers"><span>Beige &amp; Navy Blazers</span><span>$49.99</span></li>
+                    </ul>
+                    <a class="cart-proceed" href="checkout.html">Proceed to checkout</a>
+                </div>
+            </section>
+
+            <section class="about-section" id="about" aria-labelledby="about-title">
+                <div class="container">
+                    <h2 id="about-title">About ShopMate</h2>
+                    <p>Everyday style, selected for the season.</p>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
