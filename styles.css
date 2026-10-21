@@ -241,7 +241,7 @@ nav a:focus-visible,
   margin-bottom: 0.8rem;
 }
 
-/* Keep add/remove controls keyboard accessible while visually hiding the checkbox. */
+/* Keep add/remove controls checkbox. */
 .cart-toggle {
   position: absolute;
   width: 1px;
