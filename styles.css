@@ -170,7 +170,7 @@ nav a:focus-visible,
   color: white;
   text-decoration: none;
   border-radius: 4px;
-  transition: background 0.3s ease;
+
 }
 
 .hero .btn:hover {
