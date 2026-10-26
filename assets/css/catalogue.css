@@ -46,7 +46,8 @@
 .featured-carousel-toolbar {
   display: flex;
   justify-content: flex-end;
-  margin: -0.5rem 0 0.75rem;
+  max-width: 760px;
+  margin: -0.5rem auto 0.75rem;
 }
 
 .featured-carousel-arrows {
@@ -93,6 +94,8 @@
 }
 
 .featured-carousel-viewport {
+  max-width: 760px;
+  margin-inline: auto;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
   scrollbar-width: none;
@@ -105,11 +108,12 @@
 }
 
 .featured-carousel .product-grid {
-  grid-auto-columns: calc((100% - 1.5rem) / 2);
+  grid-auto-columns: calc((100% - 1rem) / 2);
   grid-auto-flow: column;
   grid-template-columns: none;
-  grid-template-rows: 1fr;
-  gap: 1.5rem;
+  grid-template-rows: auto;
+  align-items: start;
+  gap: 1rem;
 }
 
 .featured-carousel .product-card {
@@ -151,6 +155,10 @@
   background: #eef2f4;
 }
 
+.products .featured-carousel .product-card img {
+  aspect-ratio: 1;
+}
+
 .products .product-category {
   width: 100%;
   min-height: 1.6em;
@@ -188,17 +196,17 @@
 }
 
 @media (max-width: 900px) {
-  .featured-carousel .product-grid {
-    grid-auto-columns: calc((100% - 1rem) / 2);
-    gap: 1rem;
-  }
-
   .shop-all .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 560px) {
+  .featured-carousel-toolbar,
+  .featured-carousel-viewport {
+    max-width: 420px;
+  }
+
   .featured-carousel .product-grid {
     grid-auto-columns: 100%;
     gap: 0.75rem;

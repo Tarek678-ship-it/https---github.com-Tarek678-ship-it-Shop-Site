@@ -101,7 +101,12 @@ document.querySelectorAll(".products").forEach((section) => {
         carouselButtons.forEach((button) => {
             button.addEventListener("click", () => {
                 const direction = Number(button.dataset.carouselDirection);
-                const distance = carouselViewport.clientWidth;
+                const firstVisibleCard = products.find((product) => !product.hidden);
+                const gridStyles = getComputedStyle(productGrid);
+                const gap = Number.parseFloat(gridStyles.columnGap) || 0;
+                const distance = firstVisibleCard
+                    ? firstVisibleCard.getBoundingClientRect().width + gap
+                    : carouselViewport.clientWidth;
                 if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
                     carouselViewport.scrollLeft += direction * distance;
                 } else {
