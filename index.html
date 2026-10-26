@@ -71,25 +71,43 @@
                             <option value="name">Name: A to Z</option>
                         </select>
                     </div>
-                    <div class="product-grid">
-                        <article class="product-card" data-product-id="casual-outfit" data-category="outfits" data-price="29.99">
-                            <img src="assets/images/cloth%201.jpg" alt="Casual men's outfit styled for everyday wear, shown against a simple product-photo background.">
-                            <h3>Casual Men's Outfit</h3>
-                            <p class="product-price">$29.99</p>
-                            <button class="cart-btn" type="button" data-cart-add="casual-outfit">Add to cart</button>
-                        </article>
-                        <article class="product-card" data-product-id="quarter-zip" data-category="tops" data-price="39.99">
-                            <img src="assets/images/cloth%202.jpg" alt="Men's quarter-zip top shown as casual clothing against a simple product-photo background.">
-                            <h3>Men's Quarter Zip</h3>
-                            <p class="product-price">$39.99</p>
-                            <button class="cart-btn" type="button" data-cart-add="quarter-zip">Add to cart</button>
-                        </article>
-                        <article class="product-card" data-product-id="blazers" data-category="blazers" data-price="49.99">
-                            <img src="assets/images/cloth%203.jpg" alt="Beige and navy blazer set displayed against a simple product-photo background.">
-                            <h3>Beige &amp; Navy Blazers</h3>
-                            <p class="product-price">$49.99</p>
-                            <button class="cart-btn" type="button" data-cart-add="blazers">Add to cart</button>
-                        </article>
+                    <div class="featured-carousel" aria-label="Featured winter products">
+                        <div class="featured-carousel-toolbar">
+                            <span class="visually-hidden">Browse featured products</span>
+                            <div class="featured-carousel-arrows">
+                                <button class="carousel-arrow" type="button" data-carousel-direction="-1" aria-label="Show previous featured products" disabled>
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H5m7 7-7-7 7-7"/></svg>
+                                </button>
+                                <button class="carousel-arrow" type="button" data-carousel-direction="1" aria-label="Show next featured products">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="featured-carousel-viewport">
+                            <div class="product-grid">
+                                <article class="product-card" data-product-id="casual-outfit" data-category="outfits" data-price="29.99">
+                                    <img src="assets/images/cloth%201.jpg" alt="Casual men's outfit styled for everyday wear, shown against a simple product-photo background.">
+                                    <p class="product-category">Outfits</p>
+                                    <h3>Casual Men's Outfit</h3>
+                                    <p class="product-price">$29.99</p>
+                                    <button class="cart-btn" type="button" data-cart-add="casual-outfit">Add to cart</button>
+                                </article>
+                                <article class="product-card" data-product-id="quarter-zip" data-category="tops" data-price="39.99">
+                                    <img src="assets/images/cloth%202.jpg" alt="Men's quarter-zip top shown as casual clothing against a simple product-photo background.">
+                                    <p class="product-category">Tops</p>
+                                    <h3>Men's Quarter Zip</h3>
+                                    <p class="product-price">$39.99</p>
+                                    <button class="cart-btn" type="button" data-cart-add="quarter-zip">Add to cart</button>
+                                </article>
+                                <article class="product-card" data-product-id="blazers" data-category="blazers" data-price="49.99">
+                                    <img src="assets/images/cloth%203.jpg" alt="Beige and navy blazer set displayed against a simple product-photo background.">
+                                    <p class="product-category">Blazers</p>
+                                    <h3>Beige &amp; Navy Blazers</h3>
+                                    <p class="product-price">$49.99</p>
+                                    <button class="cart-btn" type="button" data-cart-add="blazers">Add to cart</button>
+                                </article>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -150,6 +168,13 @@
                             <h3>Crossbody Bag</h3>
                             <p class="product-price">$39.99</p>
                             <button class="cart-btn" type="button" data-cart-add="crossbody-bag">Add to cart</button>
+                        </article>
+                        <article class="product-card" data-product-id="wool-hat" data-category="accessories" data-price="19.99">
+                            <img src="assets/images/grey wool hat.jpg" alt="Grey wool hat">
+                            <p class="product-category">Accessories</p>
+                            <h3>Wool Hat</h3>
+                            <p class="product-price">$19.99</p>
+                            <button class="cart-btn" type="button" data-cart-add="wool-hat">Add to cart</button>
                         </article>
                     </div>
                 </div>

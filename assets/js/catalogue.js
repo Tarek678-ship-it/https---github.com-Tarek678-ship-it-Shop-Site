@@ -8,6 +8,23 @@ document.querySelectorAll(".products").forEach((section) => {
     const categoryFilter = section.querySelector(".category-filter");
     const sortSelect = section.querySelector(".sort-products");
     const products = Array.from(productGrid.querySelectorAll(".product-card"));
+    const carousel = section.querySelector(".featured-carousel");
+    const carouselViewport = carousel?.querySelector(".featured-carousel-viewport");
+    const carouselButtons = carousel?.querySelectorAll("[data-carousel-direction]");
+
+    function updateCarouselButtons() {
+        if (!carouselViewport || !carouselButtons) {
+            return;
+        }
+
+        const maxScroll = carouselViewport.scrollWidth - carouselViewport.clientWidth;
+        carouselButtons.forEach((button) => {
+            const direction = Number(button.dataset.carouselDirection);
+            button.disabled = direction < 0
+                ? carouselViewport.scrollLeft <= 1
+                : carouselViewport.scrollLeft >= maxScroll - 1;
+        });
+    }
 
     products.forEach((product, index) => {
         product.dataset.featuredOrder = index;
@@ -56,6 +73,11 @@ document.querySelectorAll(".products").forEach((section) => {
             product.hidden = !matchesCategory || !matchesSearch;
         });
 
+        if (carouselViewport) {
+            carouselViewport.scrollLeft = 0;
+            updateCarouselButtons();
+        }
+
         if (section === catalogueSection) {
             const visibleCount = products.filter((product) => !product.hidden).length;
             resultsStatus.textContent = visibleCount === 0
@@ -69,6 +91,28 @@ document.querySelectorAll(".products").forEach((section) => {
 
     if (section === catalogueSection) {
         searchInput.addEventListener("input", updateProducts);
+    }
+
+    if (carouselViewport && carouselButtons) {
+        carouselViewport.addEventListener("scroll", updateCarouselButtons, {
+            passive: true
+        });
+        window.addEventListener("resize", updateCarouselButtons);
+        carouselButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const direction = Number(button.dataset.carouselDirection);
+                const distance = carouselViewport.clientWidth;
+                if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                    carouselViewport.scrollLeft += direction * distance;
+                } else {
+                    carouselViewport.scrollBy({
+                        left: direction * distance,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+        updateCarouselButtons();
     }
 });
 
