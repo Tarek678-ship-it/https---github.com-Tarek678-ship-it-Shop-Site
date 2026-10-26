@@ -120,6 +120,16 @@
   gap: 1rem;
 }
 
+.field-hint {
+  color: #52616b;
+  font-size: 0.85rem;
+}
+
+.field-error {
+  color: #9d1c1c;
+  font-size: 0.85rem;
+}
+
 .checkout-field input,
 .checkout-field select {
   border-color: #c5cdd2;

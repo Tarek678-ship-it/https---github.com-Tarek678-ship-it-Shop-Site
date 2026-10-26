@@ -7,6 +7,12 @@
     <title>Checkout | ShopMate</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/checkout.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
     <a class="skip-link" href="#checkout-main">Skip to checkout</a>
@@ -42,7 +48,9 @@
                         </div>
                         <div class="checkout-field checkout-field-wide">
                             <label for="email">Email address</label>
-                            <input id="email" name="email" type="email" autocomplete="email" required>
+                            <input id="email" name="email" type="email" autocomplete="email" aria-describedby="email-hint" required>
+                            <small class="field-hint" id="email-hint">Use a valid email address ending in @gmail.com.</small>
+                            <small class="field-error" id="email-error" role="status" hidden></small>
                         </div>
                         <div class="checkout-field checkout-field-wide">
                             <label for="address">Street address</label>
@@ -108,5 +116,6 @@
         </div>
     </main>
     <script src="assets/js/cart.js" defer></script>
+    <script src="assets/js/checkout-validation.js" defer></script>
 </body>
 </html>
