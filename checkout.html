@@ -3,27 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ShopMate checkout demo">
+    <meta name="description" content="Review your ShopMate order and delivery details.">
     <title>Checkout | ShopMate</title>
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/checkout.css">
 </head>
 <body>
     <a class="skip-link" href="#checkout-main">Skip to checkout</a>
     <header class="checkout-header">
         <div class="container checkout-topbar">
             <a class="logo" href="index.html"><strong>ShopMate</strong></a>
-            <p>Checkout</p>
-            <a href="index.html#shop">Continue shopping</a>
+            <p>Secure checkout</p>
+            <a href="index.html#catalogue">Continue shopping</a>
         </div>
     </header>
 
     <main class="container checkout-main" id="checkout-main">
-        <h1>Delivery and payment</h1>
-        <p class="checkout-note">Demo checkout. This sample summary does not yet reflect the products selected on the shop page.</p>
+        <nav class="checkout-steps" aria-label="Checkout progress">
+            <span class="checkout-step checkout-step-current"><span>1</span> Delivery</span>
+            <span class="checkout-step-divider" aria-hidden="true"></span>
+            <span class="checkout-step"><span>2</span> Review order</span>
+        </nav>
+        <h1>Complete your order</h1>
+        <p class="checkout-note">Enter your delivery details, then review the items you added to your bag.</p>
 
         <div class="checkout-layout">
-            <form class="checkout-form">
-                <section aria-labelledby="delivery-title">
+            <form class="checkout-form" id="delivery-form">
+                <section class="checkout-panel" aria-labelledby="delivery-title">
                     <h2 id="delivery-title">Delivery address</h2>
                     <div class="checkout-fields">
                         <div class="checkout-field">
@@ -70,7 +76,7 @@
                     </div>
                 </section>
 
-                <section aria-labelledby="payment-title">
+                <section class="checkout-panel" aria-labelledby="payment-title">
                     <h2 id="payment-title">Payment method</h2>
                     <label class="payment-option">
                         <input type="radio" name="payment" value="card" checked>
@@ -80,37 +86,27 @@
                         <input type="radio" name="payment" value="paypal">
                         PayPal
                     </label>
-                    <p class="checkout-demo-note">Payment details are not collected or processed on this demo page.</p>
+                    <p class="checkout-demo-note">This demo does not collect or process payment details.</p>
                 </section>
             </form>
 
             <aside class="order-summary" aria-labelledby="summary-title">
-                <h2 id="summary-title">Order summary</h2>
-                <ul class="summary-items">
-                    <li class="summary-item">
-                        <span class="summary-item-name">Casual Men's Outfit<small>Qty: 1</small></span>
-                        <span>$29.99</span>
-                    </li>
-                    <li class="summary-item">
-                        <span class="summary-item-name">Men's Quarter Zip<small>Qty: 1</small></span>
-                        <span>$39.99</span>
-                    </li>
-                    <li class="summary-item">
-                        <span class="summary-item-name">Beige &amp; Navy Blazers<small>Qty: 1</small></span>
-                        <span>$49.99</span>
-                    </li>
-                </ul>
+                <h2 id="summary-title">Your order</h2>
+                <p class="cart-storage-error" id="cart-storage-error" role="alert" hidden></p>
+                <p class="checkout-empty" id="checkout-empty" hidden>Your bag is empty.</p>
+                <ul class="summary-items" id="summary-items" aria-label="Items in your order"></ul>
                 <div class="summary-totals">
-                    <p class="summary-total"><span>Subtotal</span><span>$119.97</span></p>
+                    <p class="summary-total"><span>Subtotal</span><span id="summary-subtotal">$0.00</span></p>
                     <p class="summary-total"><span>Shipping</span><span>Free</span></p>
-                    <p class="summary-total"><span>Estimated tax</span><span>Calculated at checkout</span></p>
-                    <p class="summary-total summary-grand-total"><span>Total before tax</span><span>$119.97</span></p>
+                    <p class="summary-total"><span>Tax</span><span>Not calculated</span></p>
+                    <p class="summary-total summary-grand-total"><span>Total before tax</span><span id="summary-total">$0.00</span></p>
                 </div>
-                <button class="place-order" type="button" disabled>Place order</button>
-                <p class="checkout-demo-note">Ordering is not connected yet.</p>
-                <a class="checkout-return" href="index.html#shop">Return to the shop</a>
+                <button class="place-order" type="submit" form="delivery-form" disabled>Place order</button>
+                <p class="checkout-demo-note">Demo only: order placement isn’t connected. Tax isn’t included in the total.</p>
+                <a class="checkout-return" href="index.html#catalogue">Continue shopping</a>
             </aside>
         </div>
     </main>
+    <script src="assets/js/cart.js" defer></script>
 </body>
 </html>

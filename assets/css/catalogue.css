@@ -9,6 +9,12 @@
   text-align: center;
 }
 
+.catalogue-results-status {
+  min-height: 1.6em;
+  margin: -0.75rem 0 1rem;
+  color: #52616b;
+}
+
 .catalogue-controls {
   display: flex;
   align-items: center;
