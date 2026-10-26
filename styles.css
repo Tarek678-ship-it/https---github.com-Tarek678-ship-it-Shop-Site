@@ -183,12 +183,15 @@ nav a:focus-visible,
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
   gap: 2rem;
 }
 
 .product-card {
   position: relative;
+  width: 100%;
+  max-width: 360px;
+  justify-self: center;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -618,4 +621,27 @@ html {
   .summary-total {
     align-items: flex-start;
   }
+}
+.catalogue-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.catalogue-controls select {
+  min-height: 42px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #aeb8bf;
+  border-radius: 4px;
+  background: #fff;
+  color: #333;
+  font: inherit;
+}
+
+.catalogue-controls select:focus-visible {
+  outline: 3px solid #3498db;
+  outline-offset: 2px;
 }

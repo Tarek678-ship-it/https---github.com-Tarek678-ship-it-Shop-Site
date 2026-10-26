@@ -46,8 +46,24 @@
             <section class="products" id="shop" aria-labelledby="shop-title">
                 <div class="container">
                     <h2 id="shop-title">Featured Products</h2>
+                    <div class="catalogue-controls">
+                        <label for="category-filter">Category</label>
+                        <select id="category-filter">
+                            <option value="all">All categories</option>
+                            <option value="outfits">Outfits</option>
+                            <option value="tops">Tops</option>
+                            <option value="blazers">Blazers</option>
+                        </select>
+                        <label for="sort-products">Sort by</label>
+                        <select id="sort-products">
+                            <option value="featured">Featured</option>
+                            <option value="price-low">Price: low to high</option>
+                            <option value="price-high">Price: high to low</option>
+                            <option value="name">Name: A to Z</option>
+                        </select>
+                    </div>
                     <div class="product-grid">
-                        <article class="product-card">
+                        <article class="product-card" data-category="outfits" data-price="29.99">
                             <img src="cloth 1.jpg" alt="Casual men's outfit styled for everyday wear, shown against a simple product-photo background.">
                             <h3>Casual Men's Outfit</h3>
                             <p class="product-price">$29.99</p>
@@ -57,7 +73,7 @@
                                 <span class="remove-text">Remove from cart</span>
                             </label>
                         </article>
-                        <article class="product-card">
+                        <article class="product-card" data-category="tops" data-price="39.99">
                             <img src="cloth 2.jpg" alt="Men's quarter-zip top shown as casual clothing against a simple product-photo background.">
                             <h3>Men's Quarter Zip</h3>
                             <p class="product-price">$39.99</p>
@@ -67,7 +83,7 @@
                                 <span class="remove-text">Remove from cart</span>
                             </label>
                         </article>
-                        <article class="product-card">
+                        <article class="product-card" data-category="blazers" data-price="49.99">
                             <img src="cloth 3.jpg" alt="Beige and navy blazer set displayed against a simple product-photo background.">
                             <h3>Beige &amp; Navy Blazers</h3>
                             <p class="product-price">$49.99</p>
@@ -101,11 +117,53 @@
                 </div>
             </section>
         </main>
-        <section class="catalogue">
-            <div class="container">
-                
-            </div>
-            
-        </section>
+    <script>
+    const productGrid = document.querySelector(".product-grid");
+    const categoryFilter = document.querySelector("#category-filter");
+    const sortSelect = document.querySelector("#sort-products");
+    const products = Array.from(productGrid.querySelectorAll(".product-card"));
+
+    // Keep the original order for the "Featured" option.
+    products.forEach((product, index) => {
+        product.dataset.featuredOrder = index;
+    });
+
+    function updateProducts() {
+        const category = categoryFilter.value;
+        const sortBy = sortSelect.value;
+
+        const sortedProducts = [...products];
+
+        if (sortBy === "price-low") {
+            sortedProducts.sort((a, b) =>
+                Number(a.dataset.price) - Number(b.dataset.price)
+            );
+        } else if (sortBy === "price-high") {
+            sortedProducts.sort((a, b) =>
+                Number(b.dataset.price) - Number(a.dataset.price)
+            );
+        } else if (sortBy === "name") {
+            sortedProducts.sort((a, b) =>
+                a.querySelector("h3").textContent.localeCompare(
+                    b.querySelector("h3").textContent
+                )
+            );
+        } else {
+            sortedProducts.sort((a, b) =>
+                Number(a.dataset.featuredOrder) - Number(b.dataset.featuredOrder)
+            );
+        }
+
+        sortedProducts.forEach((product) => {
+            productGrid.appendChild(product);
+            product.hidden =
+                category !== "all" && product.dataset.category !== category;
+        });
+    }
+
+    categoryFilter.addEventListener("change", updateProducts);
+    sortSelect.addEventListener("change", updateProducts);
+</script>
+
     </body>
 </html>
