@@ -33,9 +33,10 @@ document.querySelectorAll(".products").forEach((section) => {
     function updateProducts() {
         const category = categoryFilter.value;
         const sortBy = sortSelect.value;
-        const searchTerms = section === catalogueSection
-            ? searchInput.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean)
-            : [];
+        const searchQuery = section === catalogueSection
+            ? searchInput.value.trim().toLocaleLowerCase()
+            : "";
+        const searchTerms = searchQuery.split(/\s+/).filter(Boolean);
         const sortedProducts = [...products];
 
         if (sortBy === "price-low") {
@@ -58,19 +59,44 @@ document.querySelectorAll(".products").forEach((section) => {
             );
         }
 
-        sortedProducts.forEach((product) => {
-            productGrid.appendChild(product);
+        const matchingProducts = sortedProducts.flatMap((product) => {
             const matchesCategory =
                 category === "all" || product.dataset.category === category;
-            const searchableText = [
-                product.querySelector("h3").textContent,
-                product.querySelector(".product-category")?.textContent ?? "",
-                product.querySelector("img").alt
-            ].join(" ").toLocaleLowerCase();
-            const matchesSearch = searchTerms.every((term) =>
-                searchableText.includes(term)
-            );
-            product.hidden = !matchesCategory || !matchesSearch;
+            if (!matchesCategory) {
+                return [];
+            }
+
+            const name = product.querySelector("h3").textContent.toLocaleLowerCase();
+            const productCategory =
+                product.querySelector(".product-category")?.textContent.toLocaleLowerCase() ?? "";
+            const description = product.querySelector("img").alt.toLocaleLowerCase();
+            const searchableText = `${name} ${productCategory} ${description}`;
+            if (!searchTerms.every((term) => searchableText.includes(term))) {
+                return [];
+            }
+
+            const relevance = searchQuery
+                ? searchTerms.reduce((score, term) => score
+                    + (name.includes(term) ? 5 : 0)
+                    + (productCategory.includes(term) ? 3 : 0)
+                    + (description.includes(term) ? 1 : 0), 0)
+                    + (name.includes(searchQuery) ? 8 : 0)
+                : 0;
+            return [{ product, relevance }];
+        });
+
+        if (searchQuery) {
+            matchingProducts.sort((a, b) => b.relevance - a.relevance);
+        }
+
+        const visibleProducts = new Set(
+            (searchQuery ? matchingProducts.slice(0, 2) : matchingProducts)
+                .map(({ product }) => product)
+        );
+
+        sortedProducts.forEach((product) => {
+            productGrid.appendChild(product);
+            product.hidden = !visibleProducts.has(product);
         });
 
         if (carouselViewport) {
@@ -79,10 +105,14 @@ document.querySelectorAll(".products").forEach((section) => {
         }
 
         if (section === catalogueSection) {
-            const visibleCount = products.filter((product) => !product.hidden).length;
-            resultsStatus.textContent = visibleCount === 0
-                ? "No products found. Try another search or category."
-                : `${visibleCount} ${visibleCount === 1 ? "product" : "products"} found.`;
+            const visibleCount = visibleProducts.size;
+            resultsStatus.textContent = searchQuery
+                ? visibleCount === 0
+                    ? "Product is not available."
+                    : `Showing the ${visibleCount} most relevant ${visibleCount === 1 ? "product" : "products"}.`
+                : visibleCount === 0
+                    ? "No products found. Try another category."
+                    : `${visibleCount} ${visibleCount === 1 ? "product" : "products"} found.`;
         }
     }
 
