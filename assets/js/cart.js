@@ -5,7 +5,10 @@
         currency: "USD"
     });
     const storageError = document.querySelector("#cart-storage-error");
+    const shippingStorageKey = "shopmate-shipping";
+    const shippingOptions = Array.from(document.querySelectorAll('input[name="shipping"]'));
     let items = loadCart();
+    let shippingMethod = loadShippingMethod();
 
     function showStorageError(message) {
         if (storageError) {
@@ -35,11 +38,35 @@
                 Number.isInteger(item.quantity) &&
                 item.quantity > 0 &&
                 item.quantity <= 99
-            );
+            ).map((item) => ({
+                ...item,
+                productId: typeof item.productId === "string" ? item.productId : item.id,
+                size: typeof item.size === "string" ? item.size : ""
+            }));
         } catch (error) {
             console.error("Unable to load the saved cart.", error);
             showStorageError("We couldn’t load your saved bag. You can continue shopping, but the previous saved items may not be available.");
             return [];
+        }
+    }
+
+    function loadShippingMethod() {
+        if (shippingOptions.length === 0) {
+            return "standard";
+        }
+
+        try {
+            const savedMethod = localStorage.getItem(shippingStorageKey);
+            const selected = shippingOptions.find((option) => option.value === savedMethod);
+            const method = selected?.value ?? "standard";
+            shippingOptions.forEach((option) => {
+                option.checked = option.value === method;
+            });
+            return method;
+        } catch (error) {
+            console.error("Unable to load the saved delivery option.", error);
+            showStorageError("We couldn’t load your saved delivery choice. The standard option is selected.");
+            return "standard";
         }
     }
 
@@ -95,6 +122,23 @@
         return persist(items.filter((item) => item.id !== id));
     }
 
+    function saveShippingMethod(method) {
+        try {
+            localStorage.setItem(shippingStorageKey, method);
+            shippingMethod = method;
+            renderCheckout();
+        } catch (error) {
+            console.error("Unable to save the delivery option.", error);
+            showStorageError("Your browser couldn’t save the delivery choice.");
+        }
+    }
+
+    function getShippingCents() {
+        const selectedOption = shippingOptions.find((option) => option.value === shippingMethod);
+        const cents = Number(selectedOption?.dataset.priceCents ?? 0);
+        return Number.isSafeInteger(cents) && cents >= 0 ? cents : 0;
+    }
+
     function formatPrice(cents) {
         return currency.format(cents / 100);
     }
@@ -133,14 +177,20 @@
             const name = document.createElement("span");
             name.className = "cart-item-name";
             name.textContent = item.name;
+            if (item.size) {
+                const size = document.createElement("small");
+                size.textContent = `Size: ${item.size}`;
+                name.append(size);
+            }
 
             const controls = document.createElement("div");
             controls.className = "cart-item-controls";
+            const itemLabel = item.size ? `${item.name}, size ${item.size}` : item.name;
             controls.append(
-                makeQuantityControl(item.id, "decrease", "−", `Remove one ${item.name}`),
+                makeQuantityControl(item.id, "decrease", "−", `Remove one ${itemLabel}`),
                 document.createTextNode(` ${item.quantity} `),
-                makeQuantityControl(item.id, "increase", "+", `Add one ${item.name}`),
-                makeQuantityControl(item.id, "remove", "Remove", `Remove ${item.name} from bag`)
+                makeQuantityControl(item.id, "increase", "+", `Add one ${itemLabel}`),
+                makeQuantityControl(item.id, "remove", "Remove", `Remove ${itemLabel} from bag`)
             );
 
             const lineTotal = document.createElement("strong");
@@ -153,7 +203,6 @@
         totals.hidden = items.length === 0;
         proceed.hidden = items.length === 0;
         document.querySelector("#cart-subtotal").textContent = formatPrice(subtotalCents);
-        document.querySelector("#cart-total").textContent = formatPrice(subtotalCents);
 
         const count = document.querySelector("#cart-count");
         if (count) {
@@ -161,7 +210,10 @@
         }
 
         document.querySelectorAll("[data-cart-add]").forEach((button) => {
-            const item = items.find((cartItem) => cartItem.id === button.dataset.cartAdd);
+            const card = button.closest(".product-card");
+            const size = card.querySelector(".product-size")?.value ?? "";
+            const itemId = size ? `${button.dataset.cartAdd}:${size}` : button.dataset.cartAdd;
+            const item = items.find((cartItem) => cartItem.id === itemId);
             button.textContent = item
                 ? `Add another (${item.quantity} in bag)`
                 : "Add to cart";
@@ -179,6 +231,7 @@
             (total, item) => total + item.priceCents * item.quantity,
             0
         );
+        const shippingCents = items.length ? getShippingCents() : 0;
 
         list.replaceChildren();
         items.forEach((item) => {
@@ -190,14 +243,20 @@
             const name = document.createElement("span");
             name.className = "summary-item-name";
             name.textContent = item.name;
+            if (item.size) {
+                const size = document.createElement("small");
+                size.textContent = `Size: ${item.size}`;
+                name.append(size);
+            }
 
             const controls = document.createElement("div");
             controls.className = "summary-item-controls";
+            const itemLabel = item.size ? `${item.name}, size ${item.size}` : item.name;
             controls.append(
-                makeQuantityControl(item.id, "decrease", "−", `Remove one ${item.name}`),
+                makeQuantityControl(item.id, "decrease", "−", `Remove one ${itemLabel}`),
                 document.createTextNode(` Qty: ${item.quantity} `),
-                makeQuantityControl(item.id, "increase", "+", `Add one ${item.name}`),
-                makeQuantityControl(item.id, "remove", "Remove", `Remove ${item.name} from order`)
+                makeQuantityControl(item.id, "increase", "+", `Add one ${itemLabel}`),
+                makeQuantityControl(item.id, "remove", "Remove", `Remove ${itemLabel} from order`)
             );
             details.append(name, controls);
 
@@ -209,13 +268,29 @@
 
         emptyMessage.hidden = items.length > 0;
         document.querySelector("#summary-subtotal").textContent = formatPrice(subtotalCents);
-        document.querySelector("#summary-total").textContent = formatPrice(subtotalCents);
+        document.querySelector("#summary-shipping").textContent = formatPrice(shippingCents);
+        document.querySelector("#summary-total").textContent =
+            formatPrice(subtotalCents + shippingCents);
     }
 
     document.querySelectorAll("[data-cart-add]").forEach((button) => {
         button.addEventListener("click", () => {
             const card = button.closest(".product-card");
             const name = card.querySelector("h3").textContent.trim();
+            const sizeSelect = card.querySelector(".product-size");
+            const optionError = card.querySelector(".product-option-error");
+            const size = sizeSelect?.value ?? "";
+            if (sizeSelect && !size) {
+                optionError.textContent = "Choose a size before adding this item.";
+                optionError.hidden = false;
+                sizeSelect.focus();
+                return;
+            }
+            if (optionError) {
+                optionError.hidden = true;
+                optionError.textContent = "";
+            }
+
             const priceCents = Math.round(Number(card.dataset.price) * 100);
             if (!Number.isSafeInteger(priceCents) || priceCents < 0) {
                 showStorageError(`Couldn’t add ${name}: its price is invalid.`);
@@ -223,11 +298,30 @@
             }
 
             addProduct({
-                id: card.dataset.productId,
+                id: size ? `${card.dataset.productId}:${size}` : card.dataset.productId,
+                productId: card.dataset.productId,
                 name,
-                priceCents
+                priceCents,
+                size
             });
             render();
+        });
+    });
+
+    document.querySelectorAll(".product-size").forEach((select) => {
+        select.addEventListener("change", () => {
+            const optionError = select.closest(".product-card").querySelector(".product-option-error");
+            optionError.hidden = true;
+            optionError.textContent = "";
+            renderShopCart();
+        });
+    });
+
+    shippingOptions.forEach((option) => {
+        option.addEventListener("change", () => {
+            if (option.checked) {
+                saveShippingMethod(option.value);
+            }
         });
     });
 
@@ -254,6 +348,9 @@
         if (event.key === storageKey) {
             items = loadCart();
             render();
+        } else if (event.key === shippingStorageKey) {
+            shippingMethod = loadShippingMethod();
+            renderCheckout();
         }
     });
 

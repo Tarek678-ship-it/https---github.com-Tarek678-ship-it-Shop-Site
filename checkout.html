@@ -31,7 +31,7 @@
             <span class="checkout-step"><span>2</span> Review order</span>
         </nav>
         <h1>Complete your order</h1>
-        <p class="checkout-note">Enter your delivery details, then review the items you added to your bag.</p>
+        <p class="checkout-note">Enter your delivery details and choose how you’d like your order delivered.</p>
 
         <div class="checkout-layout">
             <form class="checkout-form" id="delivery-form">
@@ -48,8 +48,8 @@
                         </div>
                         <div class="checkout-field checkout-field-wide">
                             <label for="email">Email address</label>
-                            <input id="email" name="email" type="email" autocomplete="email" aria-describedby="email-hint" required>
-                            <small class="field-hint" id="email-hint">Use a valid email address ending in @gmail.com.</small>
+                            <input id="email" name="email" type="email" autocomplete="email" aria-describedby="email-hint email-error" required>
+                            <small class="field-hint" id="email-hint">Enter a valid email address, such as name@example.com.</small>
                             <small class="field-error" id="email-error" role="status" hidden></small>
                         </div>
                         <div class="checkout-field checkout-field-wide">
@@ -79,9 +79,24 @@
                                 <option value="SL">Sierra Leone</option>
                                 <option value="LB">Lebanon</option>
                                 <option value="GER">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="JP">Japan</option>
                             </select>
                         </div>
                     </div>
+                </section>
+
+                <section class="checkout-panel" aria-labelledby="shipping-title">
+                    <h2 id="shipping-title">Delivery speed</h2>
+                    <label class="shipping-option">
+                        <input type="radio" name="shipping" value="standard" data-price-cents="599" checked required>
+                        <span><strong>Standard delivery</strong><small>5–7 business days · $5.99</small></span>
+                    </label>
+                    <label class="shipping-option">
+                        <input type="radio" name="shipping" value="express" data-price-cents="1299" required>
+                        <span><strong>Express delivery</strong><small>2–3 business days · $12.99</small></span>
+                    </label>
+                    <p class="checkout-demo-note">Sample delivery prices for this layout only; these are not live shipping quotes.</p>
                 </section>
 
                 <section class="checkout-panel" aria-labelledby="payment-title">
@@ -105,12 +120,12 @@
                 <ul class="summary-items" id="summary-items" aria-label="Items in your order"></ul>
                 <div class="summary-totals">
                     <p class="summary-total"><span>Subtotal</span><span id="summary-subtotal">$0.00</span></p>
-                    <p class="summary-total"><span>Shipping</span><span>Free</span></p>
+                    <p class="summary-total"><span>Shipping estimate</span><span id="summary-shipping">$0.00</span></p>
                     <p class="summary-total"><span>Tax</span><span>Not calculated</span></p>
-                    <p class="summary-total summary-grand-total"><span>Total before tax</span><span id="summary-total">$0.00</span></p>
+                    <p class="summary-total summary-grand-total"><span>Estimated total before tax</span><span id="summary-total">$0.00</span></p>
                 </div>
                 <button class="place-order" type="submit" form="delivery-form" disabled>Place order</button>
-                <p class="checkout-demo-note">Demo only: order placement isn’t connected. Tax isn’t included in the total.</p>
+                <p class="checkout-demo-note">Demo only: order placement isn’t connected. Shipping is an estimate; tax isn’t included.</p>
                 <a class="checkout-return" href="index.html#catalogue">Continue shopping</a>
             </aside>
         </div>

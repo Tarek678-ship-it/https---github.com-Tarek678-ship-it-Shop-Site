@@ -3,10 +3,9 @@ const emailError = document.querySelector("#email-error");
 
 function validateEmail() {
     const email = emailInput.value.trim();
-    const validAddress = !emailInput.validity.typeMismatch &&
-        /^[^\s@]+@gmail\.com$/i.test(email);
+    const validAddress = !emailInput.validity.typeMismatch;
     const message = email && !validAddress
-        ? "Enter a valid email address ending in @gmail.com."
+        ? "Enter a valid email address, such as name@example.com."
         : "";
 
     emailInput.setCustomValidity(message);
