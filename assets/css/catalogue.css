@@ -216,9 +216,9 @@
   min-width: 0;
   min-height: 38px;
   padding: 0.4rem 1.75rem 0.4rem 0.6rem;
-  border: 1px solid #aeb8bf;
-  border-radius: 4px;
-  background: #fff;
+  border: 1px solid #d6dde1;
+  border-radius: 999px;
+  background: #f8fafb;
   color: #333;
   font: inherit;
 }
