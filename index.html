@@ -64,6 +64,27 @@
                 <a href="#shop" class="btn">Shop Now</a>
             </section>
 
+            <section class="products search-results" id="search-results" aria-labelledby="search-results-title" hidden>
+                <div class="container">
+                    <div class="search-results-heading">
+                        <h2 id="search-results-title"></h2>
+                        <button class="search-clear" id="search-clear" type="button">Clear search</button>
+                    </div>
+                    <p class="search-results-status" id="search-results-status" aria-live="polite"></p>
+                    <div class="product-grid" id="search-results-grid"></div>
+                    <div class="search-suggestions" id="search-suggestions" hidden>
+                        <p>Try a new search or explore our categories.</p>
+                        <div class="search-suggestion-list" aria-label="Shop categories">
+                            <button type="button" data-search-suggestion="Outfits">Outfits</button>
+                            <button type="button" data-search-suggestion="Tops">Tops</button>
+                            <button type="button" data-search-suggestion="Outerwear">Outerwear</button>
+                            <button type="button" data-search-suggestion="Bottoms">Bottoms</button>
+                            <button type="button" data-search-suggestion="Accessories">Accessories</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="products" id="shop" aria-labelledby="shop-title">
                 <div class="container">
                     <h2 id="shop-title">Featured Products</h2>

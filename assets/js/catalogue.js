@@ -2,8 +2,74 @@ const catalogueSection = document.querySelector("#catalogue");
 const catalogueSearch = document.querySelector("#catalogue-search");
 const searchInput = document.querySelector("#product-search");
 const resultsStatus = document.querySelector("#catalogue-results-status");
+const searchResultsSection = document.querySelector("#search-results");
+const searchResultsTitle = document.querySelector("#search-results-title");
+const searchResultsStatus = document.querySelector("#search-results-status");
+const searchResultsGrid = document.querySelector("#search-results-grid");
+const searchSuggestions = document.querySelector("#search-suggestions");
+const searchClearButton = document.querySelector("#search-clear");
+const productSections = Array.from(document.querySelectorAll(".products:not(#search-results)"));
+const updateSectionProducts = [];
 
-document.querySelectorAll(".products").forEach((section) => {
+function findSearchMatches() {
+    const searchQuery = searchInput.value.trim().toLocaleLowerCase();
+    if (!searchQuery) {
+        return null;
+    }
+
+    const searchTerms = searchQuery.split(/\s+/).filter(Boolean);
+    const matchingProducts = productSections.flatMap((section) => {
+        const categoryFilter = section.querySelector(".category-filter");
+        const category = categoryFilter.value;
+        const products = Array.from(section.querySelector(".product-grid").querySelectorAll(".product-card"));
+
+        return products.flatMap((product) => {
+            if (category !== "all" && product.dataset.category !== category) {
+                return [];
+            }
+
+            const name = product.querySelector("h3").textContent.toLocaleLowerCase();
+            const productCategory =
+                product.querySelector(".product-category")?.textContent.toLocaleLowerCase() ?? "";
+            const description = product.querySelector("img").alt.toLocaleLowerCase();
+            const searchableText = `${name} ${productCategory} ${description}`;
+            if (!searchTerms.every((term) => searchableText.includes(term))) {
+                return [];
+            }
+
+            const relevance = searchTerms.reduce((score, term) => score
+                + (name.includes(term) ? 5 : 0)
+                + (productCategory.includes(term) ? 3 : 0)
+                + (description.includes(term) ? 1 : 0), 0)
+                + (name.includes(searchQuery) ? 8 : 0);
+            return [{ product, relevance }];
+        });
+    });
+
+    matchingProducts.sort((a, b) => b.relevance - a.relevance);
+    return new Set(matchingProducts.slice(0, 2).map(({ product }) => product));
+}
+
+function updateSearchResults() {
+    const query = searchInput.value.trim();
+    const searching = Boolean(query);
+    const matches = findSearchMatches();
+    document.body.classList.toggle("is-searching", searching);
+    searchResultsSection.hidden = !searching;
+    if (!searching) {
+        searchResultsGrid.replaceChildren();
+        return;
+    }
+
+    searchResultsTitle.textContent = `Search results for “${query}”`;
+    searchSuggestions.hidden = matches.size > 0;
+    searchResultsStatus.textContent = matches.size === 0
+        ? `No results found for “${query}”.`
+        : `Showing the ${matches.size} most relevant ${matches.size === 1 ? "product" : "products"}.`;
+    searchResultsGrid.replaceChildren(...matches);
+}
+
+productSections.forEach((section) => {
     const productGrid = section.querySelector(".product-grid");
     const categoryFilter = section.querySelector(".category-filter");
     const sortSelect = section.querySelector(".sort-products");
@@ -33,10 +99,8 @@ document.querySelectorAll(".products").forEach((section) => {
     function updateProducts() {
         const category = categoryFilter.value;
         const sortBy = sortSelect.value;
-        const searchQuery = section === catalogueSection
-            ? searchInput.value.trim().toLocaleLowerCase()
-            : "";
-        const searchTerms = searchQuery.split(/\s+/).filter(Boolean);
+        const searchQuery = searchInput.value.trim().toLocaleLowerCase();
+        const searchMatches = findSearchMatches();
         const sortedProducts = [...products];
 
         if (sortBy === "price-low") {
@@ -62,40 +126,18 @@ document.querySelectorAll(".products").forEach((section) => {
         const matchingProducts = sortedProducts.flatMap((product) => {
             const matchesCategory =
                 category === "all" || product.dataset.category === category;
-            if (!matchesCategory) {
+            if (!matchesCategory || (searchMatches && !searchMatches.has(product))) {
                 return [];
             }
 
-            const name = product.querySelector("h3").textContent.toLocaleLowerCase();
-            const productCategory =
-                product.querySelector(".product-category")?.textContent.toLocaleLowerCase() ?? "";
-            const description = product.querySelector("img").alt.toLocaleLowerCase();
-            const searchableText = `${name} ${productCategory} ${description}`;
-            if (!searchTerms.every((term) => searchableText.includes(term))) {
-                return [];
-            }
-
-            const relevance = searchQuery
-                ? searchTerms.reduce((score, term) => score
-                    + (name.includes(term) ? 5 : 0)
-                    + (productCategory.includes(term) ? 3 : 0)
-                    + (description.includes(term) ? 1 : 0), 0)
-                    + (name.includes(searchQuery) ? 8 : 0)
-                : 0;
-            return [{ product, relevance }];
+            return [product];
         });
-
-        if (searchQuery) {
-            matchingProducts.sort((a, b) => b.relevance - a.relevance);
-        }
-
-        const visibleProducts = new Set(
-            (searchQuery ? matchingProducts.slice(0, 2) : matchingProducts)
-                .map(({ product }) => product)
-        );
+        const visibleProducts = new Set(matchingProducts);
 
         sortedProducts.forEach((product) => {
-            productGrid.appendChild(product);
+            if (!searchQuery) {
+                productGrid.appendChild(product);
+            }
             product.hidden = !visibleProducts.has(product);
         });
 
@@ -105,11 +147,9 @@ document.querySelectorAll(".products").forEach((section) => {
         }
 
         if (section === catalogueSection) {
-            const visibleCount = visibleProducts.size;
+            const visibleCount = searchMatches?.size ?? visibleProducts.size;
             resultsStatus.textContent = searchQuery
-                ? visibleCount === 0
-                    ? "Product is not available."
-                    : `Showing the ${visibleCount} most relevant ${visibleCount === 1 ? "product" : "products"}.`
+                ? ""
                 : visibleCount === 0
                     ? "No products found. Try another category."
                     : `${visibleCount} ${visibleCount === 1 ? "product" : "products"} found.`;
@@ -118,10 +158,7 @@ document.querySelectorAll(".products").forEach((section) => {
 
     categoryFilter.addEventListener("change", updateProducts);
     sortSelect.addEventListener("change", updateProducts);
-
-    if (section === catalogueSection) {
-        searchInput.addEventListener("input", updateProducts);
-    }
+    updateSectionProducts.push(updateProducts);
 
     if (carouselViewport && carouselButtons) {
         carouselViewport.addEventListener("scroll", updateCarouselButtons, {
@@ -151,7 +188,30 @@ document.querySelectorAll(".products").forEach((section) => {
     }
 });
 
+searchInput.addEventListener("input", () => {
+    updateSectionProducts.forEach((updateProducts) => updateProducts());
+    updateSearchResults();
+});
+
+searchClearButton.addEventListener("click", () => {
+    searchInput.value = "";
+    searchInput.dispatchEvent(new Event("input", { bubbles: true }));
+    searchInput.focus();
+});
+
+document.querySelectorAll("[data-search-suggestion]").forEach((button) => {
+    button.addEventListener("click", () => {
+        searchInput.value = button.dataset.searchSuggestion;
+        searchInput.dispatchEvent(new Event("input", { bubbles: true }));
+        searchInput.focus();
+    });
+});
+
 catalogueSearch.addEventListener("submit", (event) => {
     event.preventDefault();
-    catalogueSection.scrollIntoView({ behavior: "smooth" });
+    if (searchInput.value.trim()) {
+        searchResultsSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+        catalogueSection.scrollIntoView({ behavior: "smooth" });
+    }
 });
