@@ -211,7 +211,7 @@
 
         document.querySelectorAll("[data-cart-add]").forEach((button) => {
             const card = button.closest(".product-card");
-            const size = card.querySelector(".product-size")?.value ?? "";
+            const size = card.querySelector(".product-size:checked")?.value ?? "";
             const itemId = size ? `${button.dataset.cartAdd}:${size}` : button.dataset.cartAdd;
             const item = items.find((cartItem) => cartItem.id === itemId);
             button.textContent = item
@@ -277,13 +277,14 @@
         button.addEventListener("click", () => {
             const card = button.closest(".product-card");
             const name = card.querySelector("h3").textContent.trim();
-            const sizeSelect = card.querySelector(".product-size");
+            const sizeOptions = card.querySelectorAll(".product-size");
+            const selectedSize = card.querySelector(".product-size:checked");
             const optionError = card.querySelector(".product-option-error");
-            const size = sizeSelect?.value ?? "";
-            if (sizeSelect && !size) {
+            const size = selectedSize?.value ?? "";
+            if (sizeOptions.length > 0 && !size) {
                 optionError.textContent = "Choose a size before adding this item.";
                 optionError.hidden = false;
-                sizeSelect.focus();
+                sizeOptions[0].focus();
                 return;
             }
             if (optionError) {
@@ -308,9 +309,9 @@
         });
     });
 
-    document.querySelectorAll(".product-size").forEach((select) => {
-        select.addEventListener("change", () => {
-            const optionError = select.closest(".product-card").querySelector(".product-option-error");
+    document.querySelectorAll(".product-size").forEach((input) => {
+        input.addEventListener("change", () => {
+            const optionError = input.closest(".product-card").querySelector(".product-option-error");
             optionError.hidden = true;
             optionError.textContent = "";
             renderShopCart();
