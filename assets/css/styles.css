@@ -59,10 +59,10 @@ body {
   transform: translateY(0);
 }
 
-/* Header layout: left logo, center search, right nav */
+/* Header layout: brand, search, and compact actions */
 .header-row {
   display: grid;
-  grid-template-columns: 1fr minmax(220px, 380px) 1fr;
+  grid-template-columns: 1fr minmax(220px, 380px) auto;
   align-items: center;
   gap: 1.5rem;
   min-height: 90px;
@@ -118,10 +118,6 @@ header {
 
 header h1 {
   color: #2c3e50;
-}
-
-nav {
-  justify-self: end;
 }
 
 nav ul {
@@ -663,7 +659,7 @@ html {
   .header-row {
     grid-template-columns: 1fr auto;
     grid-template-areas:
-      "logo nav"
+      "logo actions"
       "search search";
   }
 
@@ -671,8 +667,8 @@ html {
     grid-area: logo;
   }
 
-  nav {
-    grid-area: nav;
+  .header-actions {
+    grid-area: actions;
   }
 
   .search-container {
@@ -696,24 +692,15 @@ html {
 /* Mobile layout */
 @media (max-width: 560px) {
   .header-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
     grid-template-areas:
-      "logo"
-      "search"
-      "nav";
+      "logo actions"
+      "search search";
     gap: 0.75rem;
-    text-align: center;
   }
 
-  .logo,
-  nav,
   .search-container {
-    justify-self: center;
-  }
-
-  nav ul {
-    justify-content: center;
-    gap: 0.6rem 1rem;
+    justify-self: stretch;
   }
 
   .hero h2 {

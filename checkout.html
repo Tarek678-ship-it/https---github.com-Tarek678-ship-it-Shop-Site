@@ -27,16 +27,35 @@
 </head>
 <body>
     <a class="skip-link" href="#checkout-main">Skip to checkout</a>
+    <dialog class="site-sidebar" id="site-sidebar" aria-labelledby="sidebar-title">
+        <div class="sidebar-heading">
+            <h2 id="sidebar-title">ShopMate</h2>
+            <button class="sidebar-close" type="button" aria-label="Close navigation">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+            </button>
+        </div>
+        <nav class="sidebar-nav" aria-label="Shop navigation">
+            <a href="index.html#home">Home</a>
+            <a href="index.html#shop">Featured products</a>
+            <a href="index.html#catalogue">Shop all</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#cart">Cart</a>
+        </nav>
+    </dialog>
     <header class="checkout-header">
         <div class="container checkout-topbar">
             <a class="logo" href="index.html"><strong>ShopMate</strong></a>
-            <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
-                <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"/></svg>
-                <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
-                <span>Dark mode</span>
-            </button>
             <p>Secure checkout</p>
-            <a href="index.html#catalogue">Continue shopping</a>
+            <div class="header-actions">
+                <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+                    <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"/></svg>
+                    <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+                    <span class="visually-hidden">Dark mode</span>
+                </button>
+                <button class="sidebar-open" type="button" aria-controls="site-sidebar" aria-expanded="false" aria-label="Open navigation">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -149,5 +168,6 @@
     <script src="assets/js/cart.js" defer></script>
     <script src="assets/js/checkout-validation.js" defer></script>
     <script src="assets/js/theme.js" defer></script>
+    <script src="assets/js/sidebar.js" defer></script>
 </body>
 </html>

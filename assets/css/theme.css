@@ -152,24 +152,25 @@ html[data-theme="dark"] .product-option-error {
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 0.55rem;
 }
 
 .theme-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
-  min-height: 2.5rem;
-  padding: 0.45rem 0.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border: 1px solid #d6dde1;
   border-radius: 999px;
   background: #fff;
   color: #2c3e50;
-  font: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-  white-space: nowrap;
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
@@ -185,8 +186,8 @@ html[data-theme="dark"] .product-option-error {
 }
 
 .theme-icon {
-  width: 1rem;
-  height: 1rem;
+  width: 1.15rem;
+  height: 1.15rem;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
@@ -212,18 +213,161 @@ html[data-theme="dark"] .theme-icon-sun {
   display: block;
 }
 
-.checkout-topbar .theme-toggle {
-  margin-left: 0;
+.sidebar-open,
+.sidebar-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid #d6dde1;
+  border-radius: 999px;
+  background: #fff;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-@media (max-width: 900px) {
-  .checkout-topbar .theme-toggle {
-    margin-left: auto;
+.sidebar-open:hover,
+.sidebar-close:hover {
+  background: #f1f5f7;
+  border-color: #aeb8bf;
+}
+
+.sidebar-open:focus-visible,
+.sidebar-close:focus-visible,
+.theme-toggle:focus-visible {
+  outline: 3px solid #3498db;
+  outline-offset: 3px;
+}
+
+.sidebar-open svg,
+.sidebar-close svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.site-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: min(21rem, calc(100vw - 2rem));
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 1.5rem;
+  border: 0;
+  background: #fff;
+  color: #2c3e50;
+  box-shadow: 0.75rem 0 2rem rgba(0, 0, 0, 0.16);
+}
+
+.site-sidebar[open] {
+  animation: sidebar-enter 220ms ease-out;
+}
+
+.site-sidebar::backdrop {
+  background: rgba(15, 20, 24, 0.48);
+}
+
+.sidebar-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e1e6e9;
+}
+
+.sidebar-heading h2 {
+  font-size: 1.25rem;
+}
+
+.sidebar-heading form {
+  display: flex;
+}
+
+.sidebar-nav {
+  display: grid;
+  justify-self: stretch;
+  gap: 0.35rem;
+  padding-top: 1rem;
+}
+
+.sidebar-nav a {
+  padding: 0.8rem 0.9rem;
+  border-radius: 0.7rem;
+  color: #2c3e50;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a:focus-visible {
+  background: #f1f5f7;
+  color: #1d6c9e;
+}
+
+.sidebar-cart-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@keyframes sidebar-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
+html[data-theme="dark"] .sidebar-open,
+html[data-theme="dark"] .sidebar-close {
+  border-color: var(--theme-border);
+  background: var(--theme-raised);
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] .sidebar-open:hover,
+html[data-theme="dark"] .sidebar-close:hover {
+  background: #354149;
+}
+
+html[data-theme="dark"] .site-sidebar {
+  background: var(--theme-surface);
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] .sidebar-heading {
+  border-color: var(--theme-border);
+}
+
+html[data-theme="dark"] .sidebar-nav a {
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] .sidebar-nav a:hover,
+html[data-theme="dark"] .sidebar-nav a:focus-visible {
+  background: var(--theme-raised);
+  color: #9ed5f0;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .theme-toggle {
+  .theme-toggle,
+  .sidebar-open,
+  .sidebar-close {
     transition: none;
+  }
+
+  .site-sidebar[open] {
+    animation: none;
   }
 }
