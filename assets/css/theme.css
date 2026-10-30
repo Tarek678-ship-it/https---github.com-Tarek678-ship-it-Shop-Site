@@ -1,0 +1,229 @@
+:root {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --theme-page: #15191d;
+  --theme-surface: #1e2429;
+  --theme-raised: #252d33;
+  --theme-input: #171d21;
+  --theme-text: #edf1f3;
+  --theme-muted: #b3bdc4;
+  --theme-border: #3d484f;
+  --theme-button: #394b58;
+  --theme-button-hover: #476579;
+}
+
+html[data-theme="dark"] body {
+  background: var(--theme-page);
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] header,
+html[data-theme="dark"] .checkout-header,
+html[data-theme="dark"] .products,
+html[data-theme="dark"] .shop-all,
+html[data-theme="dark"] .search-results,
+html[data-theme="dark"] .checkout-panel,
+html[data-theme="dark"] .order-summary,
+html[data-theme="dark"] .product-card {
+  background-color: var(--theme-surface);
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] header,
+html[data-theme="dark"] .checkout-header,
+html[data-theme="dark"] .product-card,
+html[data-theme="dark"] .checkout-panel,
+html[data-theme="dark"] .order-summary,
+html[data-theme="dark"] .search-results-heading,
+html[data-theme="dark"] .cart-item,
+html[data-theme="dark"] .checkout-form section + section,
+html[data-theme="dark"] .summary-items,
+html[data-theme="dark"] .summary-item,
+html[data-theme="dark"] .summary-grand-total,
+html[data-theme="dark"] .cart-total,
+html[data-theme="dark"] .checkout-step > span,
+html[data-theme="dark"] .checkout-step-divider {
+  border-color: var(--theme-border);
+}
+
+html[data-theme="dark"] .hero,
+html[data-theme="dark"] .cart-section,
+html[data-theme="dark"] .search-suggestion-list button,
+html[data-theme="dark"] .shipping-option:has(input:checked) {
+  background-color: var(--theme-raised);
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] .logo,
+html[data-theme="dark"] header h1,
+html[data-theme="dark"] nav a,
+html[data-theme="dark"] .checkout-topbar a,
+html[data-theme="dark"] .checkout-return,
+html[data-theme="dark"] .checkout-main h1,
+html[data-theme="dark"] .checkout-form h2,
+html[data-theme="dark"] .order-summary h2,
+html[data-theme="dark"] .checkout-step-current,
+html[data-theme="dark"] .products h2,
+html[data-theme="dark"] .product-card h3,
+html[data-theme="dark"] .product-price,
+html[data-theme="dark"] .cart-totals,
+html[data-theme="dark"] .cart-item-name,
+html[data-theme="dark"] .summary-item-name,
+html[data-theme="dark"] .summary-total,
+html[data-theme="dark"] .search-results-heading h2 {
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] p,
+html[data-theme="dark"] .checkout-note,
+html[data-theme="dark"] .checkout-demo-note,
+html[data-theme="dark"] .checkout-topbar p,
+html[data-theme="dark"] .checkout-steps,
+html[data-theme="dark"] .catalogue-intro,
+html[data-theme="dark"] .catalogue-results-status,
+html[data-theme="dark"] .product-category,
+html[data-theme="dark"] .search-results-status,
+html[data-theme="dark"] .search-suggestions > p,
+html[data-theme="dark"] .field-hint,
+html[data-theme="dark"] .summary-item-controls,
+html[data-theme="dark"] .cart-item-controls {
+  color: var(--theme-muted);
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] .catalogue-controls select,
+html[data-theme="dark"] .quantity-button,
+html[data-theme="dark"] .shipping-option,
+html[data-theme="dark"] .product-size-options label span {
+  border-color: var(--theme-border);
+  background-color: var(--theme-input);
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] input::placeholder {
+  color: #9aa8b0;
+}
+
+html[data-theme="dark"] .search-submit,
+html[data-theme="dark"] .carousel-arrow,
+html[data-theme="dark"] .search-clear,
+html[data-theme="dark"] .search-results-heading button,
+html[data-theme="dark"] .search-suggestion-list button {
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] .search-clear:hover,
+html[data-theme="dark"] .quantity-button:hover,
+html[data-theme="dark"] .carousel-arrow:hover:not(:disabled),
+html[data-theme="dark"] .search-suggestion-list button:hover {
+  background-color: #354149;
+}
+
+html[data-theme="dark"] .cart-btn,
+html[data-theme="dark"] .cart-proceed,
+html[data-theme="dark"] .hero .btn {
+  background: var(--theme-button);
+  color: #fff;
+}
+
+html[data-theme="dark"] .cart-btn:hover,
+html[data-theme="dark"] .cart-proceed:hover,
+html[data-theme="dark"] .hero .btn:hover {
+  background: var(--theme-button-hover);
+}
+
+html[data-theme="dark"] .product-size-options label:hover span,
+html[data-theme="dark"] .product-size-options input:checked + span {
+  border-color: #6eaac4;
+  background: linear-gradient(135deg, #253d49 0%, #30374e 100%);
+  color: #e8f7fd;
+}
+
+html[data-theme="dark"] .field-error,
+html[data-theme="dark"] .cart-storage-error,
+html[data-theme="dark"] .product-option-error {
+  color: #ff9b9b;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid #d6dde1;
+  border-radius: 999px;
+  background: #fff;
+  color: #2c3e50;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: #f1f5f7;
+  border-color: #aeb8bf;
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid #3498db;
+  outline-offset: 3px;
+}
+
+.theme-icon {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.theme-icon-sun {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-toggle {
+  border-color: var(--theme-border);
+  background: var(--theme-raised);
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+
+.checkout-topbar .theme-toggle {
+  margin-left: 0;
+}
+
+@media (max-width: 900px) {
+  .checkout-topbar .theme-toggle {
+    margin-left: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle {
+    transition: none;
+  }
+}

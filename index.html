@@ -7,6 +7,16 @@
         <title>ShopMate</title>
         <script>
             try {
+                const savedTheme = localStorage.getItem("shopmate-theme");
+                if (savedTheme === "light" || savedTheme === "dark") {
+                    document.documentElement.dataset.theme = savedTheme;
+                }
+            } catch (error) {
+                console.error("Could not load the saved ShopMate theme.", error);
+            }
+        </script>
+        <script>
+            try {
                 const hasSeenIntro = sessionStorage.getItem("shopmate-intro-seen");
                 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
                 if (!hasSeenIntro && !prefersReducedMotion) {
@@ -19,6 +29,7 @@
         </script>
         <link rel="stylesheet" href="assets/css/styles.css">
         <link rel="stylesheet" href="assets/css/catalogue.css">
+        <link rel="stylesheet" href="assets/css/theme.css">
         <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
         <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
         <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
@@ -33,6 +44,11 @@
             <div class="container header-row">
                 <div class="logo">
                     <h1><a href="#home">ShopMate</a></h1>
+                    <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+                        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"/></svg>
+                        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+                        <span>Dark mode</span>
+                    </button>
                 </div>
                 <form class="search-container" id="catalogue-search" role="search">
                     <label class="visually-hidden" for="product-search">Search products</label>
@@ -302,6 +318,7 @@
         </main>
     <script src="assets/js/cart.js" defer></script>
     <script src="assets/js/catalogue.js" defer></script>
+    <script src="assets/js/theme.js" defer></script>
 
     </body>
 </html>
