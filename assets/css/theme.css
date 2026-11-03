@@ -346,6 +346,20 @@ html[data-theme="dark"] .site-sidebar {
   color: var(--theme-text);
 }
 
+html[data-theme="dark"] .about-section {
+  background: var(--theme-raised);
+}
+
+html[data-theme="dark"] .about-heading h2,
+html[data-theme="dark"] .about-copy h3 {
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] .about-eyebrow,
+html[data-theme="dark"] .about-copy p {
+  color: var(--theme-muted);
+}
+
 html[data-theme="dark"] .sidebar-heading {
   border-color: var(--theme-border);
 }
