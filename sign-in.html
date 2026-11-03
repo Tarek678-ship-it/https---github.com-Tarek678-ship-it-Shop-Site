@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sign in to your ShopMate account demo.">
-    <title>Sign in | ShopMate</title>
+    <meta name="description" content="Sign in or create an account in the ShopMate demo.">
+    <title>Account | ShopMate</title>
     <script>
         try {
             const savedTheme = localStorage.getItem("shopmate-theme");
@@ -26,7 +26,7 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body class="account-page">
-    <a class="skip-link" href="#account-main">Skip to sign in</a>
+    <a class="skip-link" href="#account-main">Skip to account</a>
     <dialog class="site-sidebar" id="site-sidebar" aria-labelledby="sidebar-title">
         <div class="sidebar-heading">
             <h2 id="sidebar-title">ShopMate</h2>
@@ -62,23 +62,53 @@
     <main class="account-main" id="account-main">
         <section class="account-card" aria-labelledby="account-title">
             <a class="account-back-link" href="index.html#home">← Back to ShopMate</a>
-            <p class="account-eyebrow">Welcome back</p>
-            <h1 id="account-title">Sign in</h1>
-            <p>Sign-in is shown as a design demo for the ShopMate storefront.</p>
+            <p class="account-eyebrow">Your ShopMate account</p>
+            <h1 id="account-title">Welcome to ShopMate</h1>
+            <p>Sign in or create an account to continue.</p>
             <p class="account-demo-notice">Demo only: accounts are not connected. Don’t enter a real password. Nothing you type is saved or sent.</p>
-            <form class="account-form" data-account-form="sign-in">
-                <div class="account-field">
-                    <label for="sign-in-email">Email address</label>
-                    <input id="sign-in-email" name="email" type="email" autocomplete="email" required>
-                </div>
-                <div class="account-field">
-                    <label for="sign-in-password">Password</label>
-                    <input id="sign-in-password" name="password" type="password" autocomplete="current-password" required>
-                </div>
-                <button class="account-submit" type="submit">Sign in</button>
-                <p class="account-form-status" data-account-status role="status" aria-live="polite"></p>
-            </form>
-            <p class="account-footer">New to ShopMate? <a href="sign-up.html">Create an account</a></p>
+            <div class="account-switch" role="group" aria-label="Choose an account option">
+                <button type="button" data-account-view="sign-in" aria-controls="sign-in-panel" aria-pressed="true">Sign in</button>
+                <button type="button" data-account-view="sign-up" aria-controls="sign-up-panel" aria-pressed="false">Sign up</button>
+            </div>
+            <section id="sign-in-panel" class="account-panel" data-account-panel="sign-in" aria-labelledby="sign-in-title">
+                <h2 id="sign-in-title" class="visually-hidden">Sign in</h2>
+                <form class="account-form" data-account-form="sign-in">
+                    <div class="account-field">
+                        <label for="sign-in-email">Email address</label>
+                        <input id="sign-in-email" name="email" type="email" autocomplete="email" required>
+                    </div>
+                    <div class="account-field">
+                        <label for="sign-in-password">Password</label>
+                        <input id="sign-in-password" name="password" type="password" autocomplete="current-password" required>
+                    </div>
+                    <button class="account-submit" type="submit">Sign in</button>
+                    <p class="account-form-status" data-account-status role="status" aria-live="polite"></p>
+                </form>
+            </section>
+            <section id="sign-up-panel" class="account-panel" data-account-panel="sign-up" aria-labelledby="sign-up-title" hidden>
+                <h2 id="sign-up-title" class="visually-hidden">Create an account</h2>
+                <form class="account-form" data-account-form="sign-up">
+                    <div class="account-field">
+                        <label for="sign-up-name">Your name</label>
+                        <input id="sign-up-name" name="name" type="text" autocomplete="name" required>
+                    </div>
+                    <div class="account-field">
+                        <label for="sign-up-email">Email address</label>
+                        <input id="sign-up-email" name="email" type="email" autocomplete="email" required>
+                    </div>
+                    <div class="account-field">
+                        <label for="sign-up-password">Password</label>
+                        <input id="sign-up-password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+                        <span class="account-field-hint">Use at least 8 characters for this demo form.</span>
+                    </div>
+                    <div class="account-field">
+                        <label for="sign-up-confirm-password">Confirm password</label>
+                        <input id="sign-up-confirm-password" name="confirm-password" type="password" autocomplete="new-password" minlength="8" required>
+                    </div>
+                    <button class="account-submit" type="submit">Create account</button>
+                    <p class="account-form-status" data-account-status role="status" aria-live="polite"></p>
+                </form>
+            </section>
         </section>
     </main>
     <script src="assets/js/theme.js" defer></script>

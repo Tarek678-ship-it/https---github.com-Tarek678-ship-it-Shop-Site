@@ -370,14 +370,50 @@ html[data-theme="dark"] .account-card h1 {
   color: var(--theme-text);
 }
 
+html[data-theme="dark"] .account-card h2 {
+  color: var(--theme-text);
+}
+
 html[data-theme="dark"] .account-card > p,
-html[data-theme="dark"] .account-demo-notice,
-html[data-theme="dark"] .account-footer {
+html[data-theme="dark"] .account-demo-notice {
   color: var(--theme-muted);
 }
 
 html[data-theme="dark"] .account-card a {
   color: #9ed5f0;
+}
+
+html[data-theme="dark"] .account-switch {
+  background: var(--theme-raised);
+}
+
+html[data-theme="dark"] .account-switch button {
+  color: var(--theme-muted);
+}
+
+html[data-theme="dark"] .account-switch button[aria-pressed="true"] {
+  background: #34414a;
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] .about-social {
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] .about-social small {
+  color: var(--theme-muted);
+}
+
+html[data-theme="dark"] .about-social-links a {
+  border-color: var(--theme-border);
+  background: var(--theme-surface);
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] .about-social-links a:hover {
+  border-color: #3498db;
+  background: #3498db;
+  color: #fff;
 }
 
 html[data-theme="dark"] .sidebar-heading {

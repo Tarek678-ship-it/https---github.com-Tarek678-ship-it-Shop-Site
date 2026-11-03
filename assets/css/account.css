@@ -23,8 +23,7 @@
   text-decoration: none;
 }
 
-.account-back-link:hover,
-.account-footer a:hover {
+.account-back-link:hover {
   text-decoration: underline;
 }
 
@@ -56,6 +55,42 @@
   background: #fff9e8;
   color: #674f1d !important;
   font-size: 0.88rem;
+}
+
+.account-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.3rem;
+  margin-top: 1.4rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: #edf1f3;
+}
+
+.account-switch button {
+  min-height: 2.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #52616b;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.account-switch button[aria-pressed="true"] {
+  background: #fff;
+  color: #263640;
+  box-shadow: 0 1px 5px rgba(35, 45, 50, 0.12);
+}
+
+.account-switch button:focus-visible {
+  outline: 3px solid #3498db;
+  outline-offset: 2px;
+}
+
+.account-panel[hidden] {
+  display: none;
 }
 
 .account-form {
@@ -125,20 +160,13 @@
   font-size: 0.88rem;
 }
 
-.account-footer {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.account-footer a {
-  color: #2479ad;
-  font-weight: 700;
-  text-decoration: none;
-}
-
 @media (max-width: 560px) {
   .account-main {
     min-height: calc(100vh - 65px);
+  }
+
+  .account-card {
+    padding: 1.35rem;
   }
 }
 
