@@ -360,6 +360,26 @@ html[data-theme="dark"] .about-copy p {
   color: var(--theme-muted);
 }
 
+html[data-theme="dark"] .account-card {
+  border-color: var(--theme-border);
+  background: var(--theme-surface);
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] .account-card h1 {
+  color: var(--theme-text);
+}
+
+html[data-theme="dark"] .account-card > p,
+html[data-theme="dark"] .account-demo-notice,
+html[data-theme="dark"] .account-footer {
+  color: var(--theme-muted);
+}
+
+html[data-theme="dark"] .account-card a {
+  color: #9ed5f0;
+}
+
 html[data-theme="dark"] .sidebar-heading {
   border-color: var(--theme-border);
 }

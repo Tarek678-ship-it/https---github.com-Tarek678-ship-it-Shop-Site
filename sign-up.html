@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create a ShopMate account demo.">
+    <title>Sign up | ShopMate</title>
+    <script>
+        try {
+            const savedTheme = localStorage.getItem("shopmate-theme");
+            if (savedTheme === "light" || savedTheme === "dark") {
+                document.documentElement.dataset.theme = savedTheme;
+            }
+        } catch (error) {
+            console.error("Could not load the saved ShopMate theme.", error);
+        }
+    </script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/account.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body class="account-page">
+    <a class="skip-link" href="#account-main">Skip to sign up</a>
+    <dialog class="site-sidebar" id="site-sidebar" aria-labelledby="sidebar-title">
+        <div class="sidebar-heading">
+            <h2 id="sidebar-title">ShopMate</h2>
+            <button class="sidebar-close" type="button" aria-label="Close navigation">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+            </button>
+        </div>
+        <nav class="sidebar-nav" aria-label="Shop navigation">
+            <a href="index.html#home">Home</a>
+            <a href="index.html#shop">Featured products</a>
+            <a href="index.html#catalogue">Shop all</a>
+            <a href="index.html#about">About</a>
+            <a href="sign-in.html" aria-current="page">Account</a>
+            <a href="index.html#cart">Cart</a>
+        </nav>
+    </dialog>
+    <header class="checkout-header">
+        <div class="container checkout-topbar">
+            <a class="logo" href="index.html"><strong>ShopMate</strong></a>
+            <p>Account</p>
+            <div class="header-actions">
+                <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+                    <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"/></svg>
+                    <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+                    <span class="visually-hidden">Dark mode</span>
+                </button>
+                <button class="sidebar-open" type="button" aria-controls="site-sidebar" aria-expanded="false" aria-label="Open navigation">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main class="account-main" id="account-main">
+        <section class="account-card" aria-labelledby="account-title">
+            <a class="account-back-link" href="index.html#home">← Back to ShopMate</a>
+            <p class="account-eyebrow">Join the collection</p>
+            <h1 id="account-title">Create an account</h1>
+            <p>Set up your ShopMate account demo.</p>
+            <p class="account-demo-notice">Demo only: accounts are not connected. Don’t enter a real password. Nothing you type is saved or sent.</p>
+            <form class="account-form" data-account-form="sign-up">
+                <div class="account-field">
+                    <label for="sign-up-name">Your name</label>
+                    <input id="sign-up-name" name="name" type="text" autocomplete="name" required>
+                </div>
+                <div class="account-field">
+                    <label for="sign-up-email">Email address</label>
+                    <input id="sign-up-email" name="email" type="email" autocomplete="email" required>
+                </div>
+                <div class="account-field">
+                    <label for="sign-up-password">Password</label>
+                    <input id="sign-up-password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+                    <span class="account-field-hint">Use at least 8 characters for this demo form.</span>
+                </div>
+                <div class="account-field">
+                    <label for="sign-up-confirm-password">Confirm password</label>
+                    <input id="sign-up-confirm-password" name="confirm-password" type="password" autocomplete="new-password" minlength="8" required>
+                </div>
+                <button class="account-submit" type="submit">Create account</button>
+                <p class="account-form-status" data-account-status role="status" aria-live="polite"></p>
+            </form>
+            <p class="account-footer">Already have an account? <a href="sign-in.html">Sign in</a></p>
+        </section>
+    </main>
+    <script src="assets/js/theme.js" defer></script>
+    <script src="assets/js/sidebar.js" defer></script>
+    <script src="assets/js/account.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+.account-main {
+  display: grid;
+  min-height: calc(100vh - 77px);
+  place-items: center;
+  padding: clamp(2rem, 6vw, 4rem) 1rem;
+  background: #f5f7f8;
+}
+
+.account-card {
+  width: min(100%, 28rem);
+  padding: clamp(1.5rem, 5vw, 2.5rem);
+  border: 1px solid #e1e6e9;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 1rem 2.5rem rgba(35, 45, 50, 0.08);
+}
+
+.account-back-link {
+  display: inline-block;
+  margin-bottom: 2rem;
+  color: #52616b;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.account-back-link:hover,
+.account-footer a:hover {
+  text-decoration: underline;
+}
+
+.account-eyebrow {
+  margin-bottom: 0.35rem;
+  color: #497286;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.account-card h1 {
+  margin-bottom: 0.5rem;
+  color: #263640;
+  font-size: clamp(1.7rem, 5vw, 2.15rem);
+}
+
+.account-card > p {
+  color: #52616b;
+  line-height: 1.6;
+}
+
+.account-demo-notice {
+  margin-top: 1.15rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid #e8d7a8;
+  border-radius: 0.6rem;
+  background: #fff9e8;
+  color: #674f1d !important;
+  font-size: 0.88rem;
+}
+
+.account-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+
+.account-field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.account-field label {
+  color: #263640;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.account-field input {
+  width: 100%;
+  min-height: 2.8rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #cbd4d9;
+  border-radius: 0.55rem;
+  background: #fff;
+  color: #263640;
+  font: inherit;
+}
+
+.account-field input:focus-visible {
+  outline: 3px solid rgba(52, 152, 219, 0.3);
+  border-color: #3498db;
+}
+
+.account-field-hint {
+  color: #66747c;
+  font-size: 0.8rem;
+}
+
+.account-submit {
+  min-height: 2.9rem;
+  margin-top: 0.25rem;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: #2c3e50;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.account-submit:hover {
+  background: #3498db;
+}
+
+.account-submit:focus-visible {
+  outline: 3px solid #3498db;
+  outline-offset: 3px;
+}
+
+.account-form-status {
+  min-height: 1.4em;
+  color: #674f1d;
+  font-size: 0.88rem;
+}
+
+.account-footer {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.account-footer a {
+  color: #2479ad;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 560px) {
+  .account-main {
+    min-height: calc(100vh - 65px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .account-submit {
+    transition: none;
+  }
+}
