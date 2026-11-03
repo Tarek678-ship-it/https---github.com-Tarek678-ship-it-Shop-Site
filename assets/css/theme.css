@@ -20,7 +20,10 @@ html[data-theme="dark"] body {
   color: var(--theme-text);
 }
 
-html[data-theme="dark"] header,
+html[data-theme="dark"] header {
+  background-color: rgb(30 36 41 / 88%);
+}
+
 html[data-theme="dark"] .checkout-header,
 html[data-theme="dark"] .products,
 html[data-theme="dark"] .shop-all,

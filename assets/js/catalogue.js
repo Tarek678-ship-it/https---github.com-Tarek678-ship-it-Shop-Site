@@ -156,7 +156,10 @@ productSections.forEach((section) => {
         }
     }
 
-    categoryFilter.addEventListener("change", updateProducts);
+    categoryFilter.addEventListener("change", () => {
+        updateProducts();
+        updateSearchResults();
+    });
     sortSelect.addEventListener("change", updateProducts);
     updateSectionProducts.push(updateProducts);
 
