@@ -10,6 +10,11 @@ const searchSuggestions = document.querySelector("#search-suggestions");
 const searchClearButton = document.querySelector("#search-clear");
 const productSections = Array.from(document.querySelectorAll(".products:not(#search-results)"));
 const updateSectionProducts = [];
+const searchableProducts = productSections.flatMap((section) => {
+    const categoryFilter = section.querySelector(".category-filter");
+    const products = section.querySelector(".product-grid").querySelectorAll(".product-card");
+    return Array.from(products, (product) => ({ product, categoryFilter }));
+});
 
 function findSearchMatches() {
     const searchQuery = searchInput.value.trim().toLocaleLowerCase();
@@ -18,32 +23,27 @@ function findSearchMatches() {
     }
 
     const searchTerms = searchQuery.split(/\s+/).filter(Boolean);
-    const matchingProducts = productSections.flatMap((section) => {
-        const categoryFilter = section.querySelector(".category-filter");
+    const matchingProducts = searchableProducts.flatMap(({ product, categoryFilter }) => {
         const category = categoryFilter.value;
-        const products = Array.from(section.querySelector(".product-grid").querySelectorAll(".product-card"));
+        if (category !== "all" && product.dataset.category !== category) {
+            return [];
+        }
 
-        return products.flatMap((product) => {
-            if (category !== "all" && product.dataset.category !== category) {
-                return [];
-            }
+        const name = product.querySelector("h3").textContent.toLocaleLowerCase();
+        const productCategory =
+            product.querySelector(".product-category")?.textContent.toLocaleLowerCase() ?? "";
+        const description = product.querySelector("img").alt.toLocaleLowerCase();
+        const searchableText = `${name} ${productCategory} ${description}`;
+        if (!searchTerms.every((term) => searchableText.includes(term))) {
+            return [];
+        }
 
-            const name = product.querySelector("h3").textContent.toLocaleLowerCase();
-            const productCategory =
-                product.querySelector(".product-category")?.textContent.toLocaleLowerCase() ?? "";
-            const description = product.querySelector("img").alt.toLocaleLowerCase();
-            const searchableText = `${name} ${productCategory} ${description}`;
-            if (!searchTerms.every((term) => searchableText.includes(term))) {
-                return [];
-            }
-
-            const relevance = searchTerms.reduce((score, term) => score
-                + (name.includes(term) ? 5 : 0)
-                + (productCategory.includes(term) ? 3 : 0)
-                + (description.includes(term) ? 1 : 0), 0)
-                + (name.includes(searchQuery) ? 8 : 0);
-            return [{ product, relevance }];
-        });
+        const relevance = searchTerms.reduce((score, term) => score
+            + (name.includes(term) ? 5 : 0)
+            + (productCategory.includes(term) ? 3 : 0)
+            + (description.includes(term) ? 1 : 0), 0)
+            + (name.includes(searchQuery) ? 8 : 0);
+        return [{ product, relevance }];
     });
 
     matchingProducts.sort((a, b) => b.relevance - a.relevance);
